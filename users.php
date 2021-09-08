@@ -28,13 +28,14 @@
               <div class="card-body">
                   <div class="row">
                       <div class="col-sm-11">
-                        <h6 class="card-title">Employees</h6>
+                        <h6 class="card-title">Users</h6>
                       </div>
                       <div class="col-sm-1">
-                      <a href="/tracker/AddEmployee.php" class="nav-link" style="float:right">
+                      <a href="/tracker/AddUser.php" class="nav-link" style="float:right">
               <i class="link-icon" data-feather="user-plus"></i>
               <span class="link-title">Add</span>
-            </a></div></div>
+            </a>
+</div></div>
                         <div class="table-responsive">
                   <table id="dataTableExample" class="table">
                     <thead>
@@ -57,8 +58,8 @@
                         <td>2011/04/25</td>
                         <td>$320,800</td>
                         <td>
-                            <a href="/tracker/EditEmployee.php" class="btn btn-info btn-sm">Edit</a>
-                            <a href="/tracker/DeleteEmployee.php" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="/tracker/EditUser.php" class="btn btn-info btn-sm">Edit</a>
+                            <a href="/tracker/DeleteUser.php" class="btn btn-danger btn-sm">Delete</a>
                         </td>
                       </tr>
                       <tr>
