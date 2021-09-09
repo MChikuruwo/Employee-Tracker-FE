@@ -23,42 +23,56 @@
 								<h6 class="card-title">Edit Employee</h6>
 								<form class="forms-sample">
 									<div class="form-group row">
-										<label for="exampleInputUsername2" class="col-sm-3 col-form-label">Username</label>
+										<label for="exampleInputUsername2" class="col-sm-3 col-form-label">Name</label>
 										<div class="col-sm-9">
-											<input type="text" class="form-control" id="exampleInputUsername2" placeholder="Email">
+											<input type="text" class="form-control" id="exampleInputUsername2" placeholder="Name">
 										</div>
 									</div>
 									<div class="form-group row">
-										<label for="exampleInputEmail2" class="col-sm-3 col-form-label">Email</label>
+										<label for="exampleInputEmail2" class="col-sm-3 col-form-label">surname</label>
 										<div class="col-sm-9">
-											<input type="email" class="form-control" id="exampleInputEmail2" autocomplete="off" placeholder="Email">
+											<input type="text" class="form-control" id="exampleInputEmail2" autocomplete="off" placeholder="Surname">
 										</div>
 									</div>
 									<div class="form-group row">
-										<label for="exampleInputMobile" class="col-sm-3 col-form-label">Mobile</label>
+										<label for="exampleInputEmail2" class="col-sm-3 col-form-label">EmployeeCode</label>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" id="exampleInputEmail2" autocomplete="off" placeholder="EmployeeCode">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="exampleInputEmail2" class="col-sm-3 col-form-label">Gender</label>
+										<div class="col-sm-9">
+											<select name="gender">
+     							 <option value="MALE">MALE</option>
+   								 <option value="FEMALE">FEMALE</option>
+  									</select>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="exampleInputMobile" class="col-sm-3 col-form-label">Mobile Number</label>
 										<div class="col-sm-9">
 											<input type="number" class="form-control" id="exampleInputMobile" placeholder="Mobile number">
 										</div>
 									</div>
 									<div class="form-group row">
-										<label for="exampleInputPassword2" class="col-sm-3 col-form-label">Password</label>
+										<label for="exampleInputResidentialStatus" class="col-sm-3 col-form-label">Residential Status</label>
 										<div class="col-sm-9">
-											<input type="password" class="form-control" id="exampleInputPassword2" autocomplete="off" placeholder="Password">
+											<select name="Residential Status">
+     							 <option value="PERMANENT">PERMANENT</option>
+   								 <option value="MORTGAGE">MORTGAGE</option>
+									<option value="RENTAL">RENTAL</option>
+  									</select>
 										</div>
 									</div>
-									<div class="form-check form-check-flat form-check-primary mt-0">
-										<label class="form-check-label">
-											<input type="checkbox" class="form-check-input">
-											Remember me
-										</label>
-									</div>
-									<button type="submit" class="btn btn-primary mr-2">Submit</button>
-									<button class="btn btn-light">Cancel</button>
+									<button type="submit" class="btn btn-primary mr-2">Add</button>
+									<button class="btn btn-light">Discard</button>
 								</form>
-							</div>
+								</div>
 						</div>
 					</div>
 				</div>
+
 				
 
 			<!-- partial:partials/_footer.html -->

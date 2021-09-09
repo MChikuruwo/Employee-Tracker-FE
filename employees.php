@@ -39,12 +39,17 @@
                   <table id="dataTableExample" class="table">
                     <thead>
                       <tr>
+                        <th>EmployeeCode</th>
                         <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
+                        <th>Surname</th>
+                        <th>Date_of_Birth</th>
+                        <th>Gender</th>
+                        <th>Mobile Number</th>
+                        <th>Email Address</th>
+                        <th>Residential Status</th>
+                        <th>Employment Status</th>
+                        <th>Job Title</th>
+
                         <th></th>
                       </tr>
                     </thead>
@@ -56,6 +61,10 @@
                         <td>61</td>
                         <td>2011/04/25</td>
                         <td>$320,800</td>
+                        <td>Edinburgh</td>
+                        <td>Edinburgh</td>
+                        <td>Edinburgh</td>
+                        <td>Edinburgh</td>
                         <td>
                             <a href="/tracker/EditEmployee.php" class="btn btn-info btn-sm">Edit</a>
                             <a href="/tracker/DeleteEmployee.php" class="btn btn-danger btn-sm">Delete</a>
