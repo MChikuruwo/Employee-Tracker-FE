@@ -19,7 +19,7 @@
 
         <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
           <div>
-            <h4 class="mb-3 mb-md-0">Welcome to Dashboard</h4>
+            <h4 class="mb-3 mb-md-0">Welcome to Employee Tracker Dashboard</h4>
           </div>
           <div class="d-flex align-items-center flex-wrap text-nowrap">
             <div class="input-group date datepicker dashboard-date mr-2 mb-2 mb-md-0 d-md-none d-xl-flex" id="dashboardDate">
@@ -48,7 +48,7 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="d-flex justify-content-between align-items-baseline">
-                      <h6 class="card-title mb-0">New Customers</h6>
+                      <h6 class="card-title mb-0">Employee Attendance</h6>
                       <div class="dropdown mb-2">
                         <button class="btn p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
@@ -83,7 +83,7 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="d-flex justify-content-between align-items-baseline">
-                      <h6 class="card-title mb-0">New Orders</h6>
+                      <h6 class="card-title mb-0">Employee Performance</h6>
                       <div class="dropdown mb-2">
                         <button class="btn p-0" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
@@ -174,7 +174,7 @@
                 </div>
                 <div class="row align-items-start mb-2">
                   <div class="col-md-7">
-                    <p class="text-muted tx-13 mb-3 mb-md-0">Revenue is the income that a business has from its normal business activities, usually from the sale of goods and services to customers.</p>
+                    <p class="text-muted tx-13 mb-3 mb-md-0">An overview of the overall organization revenue based on employee  performance.</p>
                   </div>
                   <div class="col-md-5 d-flex justify-content-md-end">
                     <div class="btn-group mb-3 mb-md-0" role="group" aria-label="Basic example">
@@ -198,7 +198,7 @@
             <div class="card">
               <div class="card-body">
                 <div class="d-flex justify-content-between align-items-baseline mb-2">
-                  <h6 class="card-title mb-0">Monthly sales</h6>
+                  <h6 class="card-title mb-0">Monthly Attendance</h6>
                   <div class="dropdown mb-2">
                     <button class="btn p-0" type="button" id="dropdownMenuButton4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
@@ -212,7 +212,7 @@
                     </div>
                   </div>
                 </div>
-                <p class="text-muted mb-4">Sales are activities related to selling or the number of goods or services sold in a given time period.</p>
+                <p class="text-muted mb-4">Attendance of the Employees in a given time period.</p>
                 <div class="monthly-sales-chart-wrapper">
                   <canvas id="monthly-sales-chart"></canvas>
                 </div>
@@ -346,7 +346,7 @@
             <div class="card">
               <div class="card-body">
                 <div class="d-flex justify-content-between align-items-baseline mb-2">
-                  <h6 class="card-title mb-0">Projects</h6>
+                  <h6 class="card-title mb-0">Delegated Duties</h6>
                   <div class="dropdown mb-2">
                     <button class="btn p-0" type="button" id="dropdownMenuButton7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
@@ -365,17 +365,17 @@
                     <thead>
                       <tr>
                         <th class="pt-0">#</th>
-                        <th class="pt-0">Project Name</th>
+                        <th class="pt-0">Duty</th>
                         <th class="pt-0">Start Date</th>
                         <th class="pt-0">Due Date</th>
                         <th class="pt-0">Status</th>
-                        <th class="pt-0">Assign</th>
+                        <th class="pt-0">Subordinate</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
                         <td>1</td>
-                        <td>NobleUI jQuery</td>
+                        <td> jQuery</td>
                         <td>01/01/2020</td>
                         <td>26/04/2020</td>
                         <td><span class="badge badge-danger">Released</span></td>
@@ -383,7 +383,7 @@
                       </tr>
                       <tr>
                         <td>2</td>
-                        <td>NobleUI Angular</td>
+                        <td> Angular</td>
                         <td>01/01/2020</td>
                         <td>26/04/2020</td>
                         <td><span class="badge badge-success">Review</span></td>
@@ -391,7 +391,7 @@
                       </tr>
                       <tr>
                         <td>3</td>
-                        <td>NobleUI ReactJs</td>
+                        <td> ReactJs</td>
                         <td>01/05/2020</td>
                         <td>10/09/2020</td>
                         <td><span class="badge badge-info-muted">Pending</span></td>
@@ -399,7 +399,7 @@
                       </tr>
                       <tr>
                         <td>4</td>
-                        <td>NobleUI VueJs</td>
+                        <td>VueJs</td>
                         <td>01/01/2020</td>
                         <td>31/11/2020</td>
                         <td><span class="badge badge-warning">Work in Progress</span>
@@ -408,7 +408,7 @@
                       </tr>
                       <tr>
                         <td>5</td>
-                        <td>NobleUI Laravel</td>
+                        <td>Laravel</td>
                         <td>01/01/2020</td>
                         <td>31/12/2020</td>
                         <td><span class="badge badge-danger-muted text-white">Coming soon</span></td>

@@ -4,21 +4,17 @@
   //get remote data
   $records = [
     [
-      'name' => 'John',
-      'surname' => 'Doe',
-       'emailAddress' => 'jd@email.com',
-       'employeeCode' => "0001",
+        'title' => 'Final Year Exams',
+      'notice' => 'Note That Exams begin on the 14th of September.',
        'dateCreated' => '01/01/21',
-       'isActive' => 'Yes'
     ],
+
     [
-      'name' => 'Jane',
-      'surname' => 'Doe',
-       'emailAddress' => 'jdoe@email.com',
-       'employeeCode' => "0002",
-       'dateCreated' => '02/10/21',
-       'isActive' => 'No'
+      'title' => 'Final Year Project Presentation',
+      'notice' => 'Project Presentations are a week after exams.',
+       'dateCreated' => '01/09/21',
     ],
+    
   ];
 ?> 
 	<div class="main-wrapper">
@@ -48,11 +44,11 @@
               <div class="card-body">
                   <div class="row">
                       <div class="col-sm-11">
-                        <h6 class="card-title">Users</h6>
+                        <h6 class="card-title">Notices</h6>
                       </div>
                       <div class="col-sm-1">
-                      <a href="/tracker/AddUser.php" class="nav-link" style="float:right">
-              <i class="link-icon" data-feather="user-plus"></i>
+                      <a href="/tracker/AddNotice.php" class="nav-link" style="float:right">
+              <i class="link-icon" data-feather="plus-circle"></i>
               <span class="link-title">Add</span>
             </a>
 </div></div>
@@ -60,12 +56,9 @@
                   <table id="dataTableExample" class="table">
                     <thead>
                       <tr>
-                        <th>Name</th>
-                        <th>Surname</th>
-                        <th>E-mail_Address</th>
-                        <th>EmployeeCode</th>
+                        <th>Title</th>
+                        <th>Notice</th>
                         <th>Date_Created</th>
-                        <th>Is_Active</th>
                         <th></th>
                       </tr>
                     </thead>
@@ -73,16 +66,13 @@
                       
                         <?php
                           foreach ($records as $record){
-                            echo '<tr><td>'.$record['name'].'</td>
-                        <td>'.$record['surname'].'</td>
-                        <td>'.$record['emailAddress'].'</td>
-                        <td>'.$record['employeeCode'].'</td>
+                            echo '<tr><td>'.$record['title'].'</td>
+                        <td>'.$record['notice'].'</td>
                         <td>'.$record['dateCreated'].'</td>
-                        <td>'.$record['isActive'].'</td>
                         <td></td>
                         <td>
-                            <a href="/tracker/EditUser.php?id='.$record['employeeCode'].'" class="btn btn-info btn-sm">Edit</a>
-                            <a href="/tracker/DeleteUser.php?id='.$record['employeeCode'].'" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="/tracker/EditNotice.php?id='.$record['title'].'" class="btn btn-info btn-sm">Edit</a>
+                            <a href="/tracker/DeleteNotice.php?id='.$record['title'].'" class="btn btn-danger btn-sm">Delete</a>
                         </td></tr>';
                           }
                         ?>
