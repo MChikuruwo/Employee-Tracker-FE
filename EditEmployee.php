@@ -1,4 +1,55 @@
 <?php 
+	$id = $_GET['id'];
+	if (empty($id) || is_null($id))header("location:../employees.php");
+
+	$url = "https://employee-tracker-apii.herokuapp.com/api/v1/employees/by-user/" . $id;  
+  $ch = curl_init();   
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);   
+  curl_setopt($ch, CURLOPT_URL, $url);   
+  $response = curl_exec($ch);  
+  curl_close($ch);
+
+  if (!$response)die("<h3>Employee not found!</h3>");
+  $response = json_decode($response);
+
+
+	if(isset($_POST["submit"])){
+	  @$postData = array(
+	  	'_method' => 'PUT',
+		  'name' => $_POST['name'],
+		  'surname'  => $_POST['surname'],
+		  'employeeCode'    => $_POST['employeeCode'],
+		  'gender' => $_POST['gender'],
+		  'mobileNumber' => $_POST['mobileNumber'],
+		  'residentialStatus' => $_POST['residentialStatus']
+		);
+
+		$userID = '';
+		$employeeStatusID = '';
+		$jobTitleID = '';
+		$handle = curl_init();
+		 
+		curl_setopt_array($handle,
+		  array(
+		     CURLOPT_URL => 'https://employee-tracker-apii.herokuapp.com/api/v1/employees/edit/' . $id,
+		     // Enable the post response.
+		    CURLOPT_POST       => true,
+		    // The data to transfer with the response.
+		    CURLOPT_POSTFIELDS => $postData,
+		    CURLOPT_RETURNTRANSFER     => true,
+		  )
+		);
+		 
+		$res = curl_exec($handle);
+		 
+		curl_close($handle);
+		 
+		if ($res !== false){
+			$success = 'Employee successfully added';
+		}
+		else $error = "Whoops! an error occurred";
+	}
+
   include('includes/head.php')
 ?> 
 	<div class="main-wrapper">
@@ -21,51 +72,59 @@
 						<div class="card">
 							<div class="card-body">
 								<h6 class="card-title">Edit Employee</h6>
-								<form class="forms-sample">
+								<?php
+									if(isset($error)){
+										echo '<p class="alert alert-danger">' . $error . '</p><br>';
+									}
+									elseif(isset($success)){
+										echo '<p class="alert alert-success">' . $success . '</p><br>';
+									}
+								?>
+								<form class="forms-sample" action="" method="post">
 									<div class="form-group row">
 										<label for="exampleInputUsername2" class="col-sm-3 col-form-label">Name</label>
 										<div class="col-sm-9">
-											<input type="text" class="form-control" id="exampleInputUsername2" placeholder="Name">
+											<input type="text" class="form-control" id="exampleInputUsername2" placeholder="Name" name="name" value="<?php echo $response->name ?>">
 										</div>
 									</div>
 									<div class="form-group row">
 										<label for="exampleInputEmail2" class="col-sm-3 col-form-label">surname</label>
 										<div class="col-sm-9">
-											<input type="text" class="form-control" id="exampleInputEmail2" autocomplete="off" placeholder="Surname">
+											<input type="text" class="form-control" id="exampleInputEmail2" autocomplete="off" placeholder="Surname" name="surname"  value="<?php echo $response->surname ?>">
 										</div>
 									</div>
 									<div class="form-group row">
 										<label for="exampleInputEmail2" class="col-sm-3 col-form-label">EmployeeCode</label>
 										<div class="col-sm-9">
-											<input type="text" class="form-control" id="exampleInputEmail2" autocomplete="off" placeholder="EmployeeCode">
+											<input type="text" class="form-control" id="exampleInputEmail2" autocomplete="off" name="employeeCode" placeholder="EmployeeCode"  value="<?php echo $response->employeeCode ?>">
 										</div>
 									</div>
 									<div class="form-group row">
 										<label for="exampleInputEmail2" class="col-sm-3 col-form-label">Gender</label>
 										<div class="col-sm-9">
 											<select name="gender">
-     							 <option value="MALE">MALE</option>
-   								 <option value="FEMALE">FEMALE</option>
+     							 <option value="MALE" <?php if (strtoupper($response->gender)=="MALE") echo " selected" ?>>MALE</option>
+   								 <option value="FEMALE" <?php if (strtoupper($response->gender)=="FEMALE") echo " selected" ?>>FEMALE</option>
   									</select>
 										</div>
 									</div>
 									<div class="form-group row">
 										<label for="exampleInputMobile" class="col-sm-3 col-form-label">Mobile Number</label>
 										<div class="col-sm-9">
-											<input type="number" class="form-control" id="exampleInputMobile" placeholder="Mobile number">
+											<input type="number" class="form-control" id="exampleInputMobile" placeholder="Mobile number" name="mobileNumber" value="<?php echo $response->mobileNumber ?>">
 										</div>
 									</div>
 									<div class="form-group row">
 										<label for="exampleInputResidentialStatus" class="col-sm-3 col-form-label">Residential Status</label>
 										<div class="col-sm-9">
-											<select name="Residential Status">
-     							 <option value="PERMANENT">PERMANENT</option>
-   								 <option value="MORTGAGE">MORTGAGE</option>
-									<option value="RENTAL">RENTAL</option>
+											<select name="residentialStatus">
+     							 <option value="PERMANENT" <?php if (strtoupper($response->residentialStatus)=="PERMANENT") echo " selected" ?>>PERMANENT</option>
+   								 <option value="MORTGAGE" <?php if (strtoupper($response->residentialStatus)=="MORTGAGE") echo " selected" ?>>MORTGAGE</option>
+									<option value="RENTAL" <?php if (strtoupper($response->residentialStatus)=="RENTAL") echo " selected" ?>>RENTAL</option>
   									</select>
 										</div>
 									</div>
-									<button type="submit" class="btn btn-primary mr-2">Add</button>
+									<button type="submit" name="submit" class="btn btn-primary mr-2">Add</button>
 									<button class="btn btn-light">Discard</button>
 								</form>
 								</div>

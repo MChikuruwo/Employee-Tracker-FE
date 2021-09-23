@@ -1,4 +1,41 @@
 <?php 
+
+	if(isset($_POST["submit"])){
+	  @$postData = array(
+		  'name' => $_POST['name'],
+		  'surname'  => $_POST['surname'],
+		  'employeeCode'    => $_POST['employeeCode'],
+		  'gender' => $_POST['gender'],
+		  'mobileNumber' => $_POST['mobileNumber'],
+		  'residentialStatus' => $_POST['residentialStatus']
+		);
+
+		$userID = '';
+		$employeeStatusID = '';
+		$jobTitleID = '';
+		$handle = curl_init();
+		 
+		curl_setopt_array($handle,
+		  array(
+		     CURLOPT_URL => 'https://employee-tracker-apii.herokuapp.com/api/v1/employees/add/' . $userID . '/' . $employeeStatusID . '/' . $jobTitleID,
+		     // Enable the post response.
+		    CURLOPT_POST       => true,
+		    // The data to transfer with the response.
+		    CURLOPT_POSTFIELDS => $postData,
+		    CURLOPT_RETURNTRANSFER     => true,
+		  )
+		);
+		 
+		$response = curl_exec($handle);
+		 
+		curl_close($handle);
+		 
+		if ($response !== false){
+			$success = 'Employee successfully added';
+		}
+		else $error = "Whoops! an error occurred";
+	}
+
   include('includes/head.php')
 ?> 
 	<div class="main-wrapper">
@@ -21,23 +58,31 @@
 						<div class="card">
 							<div class="card-body">
 								<h6 class="card-title">Add New Employee</h6>
-								<form class="forms-sample">
+								<?php
+									if(isset($error)){
+										echo '<p class="alert alert-danger">' . $error . '</p><br>';
+									}
+									elseif(isset($success)){
+										echo '<p class="alert alert-success">' . $success . '</p><br>';
+									}
+								?>
+								<form class="forms-sample" action="" method="post">
 									<div class="form-group row">
 										<label for="exampleInputUsername2" class="col-sm-3 col-form-label">Name</label>
 										<div class="col-sm-9">
-											<input type="text" class="form-control" id="exampleInputUsername2" placeholder="Name">
+											<input type="text" class="form-control" id="exampleInputUsername2" placeholder="Name" name="name">
 										</div>
 									</div>
 									<div class="form-group row">
 										<label for="exampleInputEmail2" class="col-sm-3 col-form-label">surname</label>
 										<div class="col-sm-9">
-											<input type="text" class="form-control" id="exampleInputEmail2" autocomplete="off" placeholder="Surname">
+											<input type="text" class="form-control" id="exampleInputEmail2" autocomplete="off" placeholder="Surname" name="surname">
 										</div>
 									</div>
 									<div class="form-group row">
 										<label for="exampleInputEmail2" class="col-sm-3 col-form-label">EmployeeCode</label>
 										<div class="col-sm-9">
-											<input type="text" class="form-control" id="exampleInputEmail2" autocomplete="off" placeholder="EmployeeCode">
+											<input type="text" class="form-control" id="exampleInputEmail2" autocomplete="off" placeholder="EmployeeCode" name="employeeCode">
 										</div>
 									</div>
 									<div class="form-group row">
@@ -52,20 +97,20 @@
 									<div class="form-group row">
 										<label for="exampleInputMobile" class="col-sm-3 col-form-label">Mobile Number</label>
 										<div class="col-sm-9">
-											<input type="number" class="form-control" id="exampleInputMobile" placeholder="Mobile number">
+											<input type="number" class="form-control" id="exampleInputMobile" placeholder="Mobile number" name="mobileNumber">
 										</div>
 									</div>
 									<div class="form-group row">
 										<label for="exampleInputResidentialStatus" class="col-sm-3 col-form-label">Residential Status</label>
 										<div class="col-sm-9">
-											<select name="Residential Status">
+											<select name="Residential Status" name="residentialStatus">
      							 <option value="PERMANENT">PERMANENT</option>
    								 <option value="MORTGAGE">MORTGAGE</option>
 									<option value="RENTAL">RENTAL</option>
   									</select>
 										</div>
 									</div>
-									<button type="submit" class="btn btn-primary mr-2">Add</button>
+									<button type="submit" name="submit" class="btn btn-primary mr-2">Add</button>
 									<button class="btn btn-light">Discard</button>
 								</form>
 								</div>

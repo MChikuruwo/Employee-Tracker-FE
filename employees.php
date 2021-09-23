@@ -1,33 +1,43 @@
 <?php 
-  include('includes/head.php');
 
-  //get remote data
-  $records = [
-    [
-      'employeeCode' => "0001",
-      'name' => 'John',
-      'surname' => 'Doe',
-      'dateOfBirth' => '01/05/2000',
-       'gender' => 'MALE',
-       'mobileNumber' => '0772775778',
-       'emailAddress' => 'jd@email.com',
-       'residentialStatus' => 'PERMANENT',
-       'employmentStatus' => 'CONTRACT',
-       'jobTitle'=> 'Software Developer'
-    ],
-    [
-      'employeeCode' => "0001",
-      'name' => 'Jane',
-      'surname' => 'Doe',
-      'dateOfBirth' => '01/06/2000',
-       'gender' => 'FEMALE',
-       'mobileNumber' => '0772775758',
-       'emailAddress' => 'jdoe@email.com',
-       'residentialStatus' => 'MORTGAGE',
-       'employmentStatus' => 'PERMANENT',
-       'jobTitle'=> 'Project Manager'
-    ],
-  ];
+  if(isset($_POST["deleteID"])){
+    @$postData = array(
+      '_method' => "DELETE"
+    );
+
+    $userID = '';
+    $employeeStatusID = '';
+    $jobTitleID = '';
+    $handle = curl_init();
+     
+    curl_setopt_array($handle,
+      array(
+         CURLOPT_URL => 'https://employee-tracker-apii.herokuapp.com/api/v1/employees/delete/' . $_POST['deleteID'],
+         // Enable the post response.
+        CURLOPT_POST       => true,
+        // The data to transfer with the response.
+        CURLOPT_POSTFIELDS => $postData,
+        CURLOPT_RETURNTRANSFER     => true,
+      )
+    );
+     
+    $response = curl_exec($handle);
+     
+    curl_close($handle);
+     
+    if ($response !== false){
+      $success = 'Employee successfully deleted';
+    }
+    else $error = "Whoops! an error occurred";
+  }
+
+  $url = "https://employee-tracker-apii.herokuapp.com/api/v1/employees/"; 
+  $ch = curl_init();   
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);   
+  curl_setopt($ch, CURLOPT_URL, $url);   
+  $response = curl_exec($ch);  
+  curl_close($ch);
+  include('includes/head.php');
 ?> 
 	<div class="main-wrapper">
 
@@ -64,6 +74,23 @@
               <span class="link-title">Add</span>
             </a>
 </div></div>
+            <?php
+                          if($response === false){
+                            echo '</tbody></thead><p class="alert alert-danger">An error occurred!</p><br>';
+                          }
+                          elseif (empty($response)){
+                              echo '</tbody></thead><br><br<br><h3 class="text-center text-muted">No employees!</h3><br><br<br>';
+                          }
+                          else{
+                            if(isset($error)){
+                              echo '<p class="alert alert-danger">' . $error . '</p><br>';
+                            }
+                            elseif(isset($success)){
+                              echo '<p class="alert alert-success">' . $success . '</p><br>';
+                            }
+            ?>
+
+
                         <div class="table-responsive">
                   <table id="dataTableExample" class="table">
                     <thead>
@@ -84,27 +111,32 @@
                     <tbody>
                       
                         <?php
-                          foreach ($records as $record){
-                            echo '<tr><td>'.$record['employeeCode'].'</td>
-                        <td>'.$record['name'].'</td>
-                        <td>'.$record['surname'].'</td>
-                        <td>'.$record['dateOfBirth'].'</td>
-                        <td>'.$record['gender'].'</td>
-                        <td>'.$record['mobileNumber'].'</td>
-                        <td>'.$record['emailAddress'].'</td>
-                        <td>'.$record['residentialStatus'].'</td>
-                        <td>'.$record['employmentStatus'].'</td>
-                        <td>'.$record['jobTitle'].'</td>
-                            <td></td>
-                        <td>
-                            <a href="/tracker/EditUser.php?id='.$record['employeeCode'].'" class="btn btn-info btn-sm">Edit</a>
-                            <a href="/tracker/DeleteUser.php?id='.$record['employeeCode'].'" class="btn btn-danger btn-sm">Delete</a>
-                        </td></tr>';
-                          }
+                            foreach (json_decode($response) as $record){
+                              echo '<tr><td>'.$record->employeeCode.'</td>
+                              <td>'.$record->name.'</td>
+                              <td>'.$record->surname.'</td>
+                              <td>'.$record->dateOfBirth.'</td>
+                              <td>'.$record->gender.'</td>
+                              <td>'.$record->mobileNumber.'</td>
+                              <td>'.$record->emailAddress.'</td>
+                              <td>'.$record->residentialStatus.'</td>
+                              <td>'.$record->employmentStatus.'</td>
+                              <td>'.$record->jobTitle.'</td>
+                                  <td></td>
+                              <td>
+                                  <a href="/tracker/EditEmployee.php?id='.$record->id.'" class="btn btn-info btn-sm">Edit</a>
+                                  <button type="button" class="btn btn-danger btn-sm" onclick="document.getElementById(`deleteform'.$record->id.'`).submit();">Delete</button>
+
+                                  <form action="" method="post" id="deleteform'.$record->id.'"><input type="hidden" name="deleteID" value="'.$record->id.'"/></form>
+                              </td></tr>';
+                            }
                         ?>            
                     </tbody>
                   </table>
                 </div>
+                <?php 
+                  }
+                ?>
               </div>
             </div>
 					</div>
