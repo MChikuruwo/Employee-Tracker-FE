@@ -4,9 +4,12 @@
 	  @$postData = array(
 		  'name' => $_POST['name'],
 		  'surname'  => $_POST['surname'],
+			'gender' => $_POST['gender'],
+			'dateOfBirth' => $_POST['dateOfBirth'],
 		  'employeeCode'    => $_POST['employeeCode'],
-		  'gender' => $_POST['gender'],
 		  'mobileNumber' => $_POST['mobileNumber'],
+			'emailAddress' => $_POST['emailAddress'],
+			'address1' => $_POST['address1'],
 		  'residentialStatus' => $_POST['residentialStatus']
 		);
 
@@ -78,11 +81,13 @@
 										<div class="col-sm-9">
 											<input type="text" class="form-control" id="exampleInputEmail2" autocomplete="off" placeholder="Surname" name="surname">
 										</div>
+						
 									</div>
+
 									<div class="form-group row">
-										<label for="exampleInputEmail2" class="col-sm-3 col-form-label">EmployeeCode</label>
+									<label for="exampleInputEmail2" class="col-sm-3 col-form-label">Date Of Birth</label>
 										<div class="col-sm-9">
-											<input type="text" class="form-control" id="exampleInputEmail2" autocomplete="off" placeholder="EmployeeCode" name="employeeCode">
+											<input type="date" class="form-control" id="dateOfBirth" autocomplete="off" placeholder="YY-MM-DD" name="dateOfBirth">
 										</div>
 									</div>
 									<div class="form-group row">
@@ -93,11 +98,29 @@
    								 <option value="FEMALE">FEMALE</option>
   									</select>
 										</div>
+										</div>
+									<div class="form-group row">
+										<label for="exampleInputEmail2" class="col-sm-3 col-form-label">EmployeeCode</label>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" id="exampleInputEmail2" autocomplete="off" placeholder="EmployeeCode" name="employeeCode">
+										</div>								
 									</div>
 									<div class="form-group row">
 										<label for="exampleInputMobile" class="col-sm-3 col-form-label">Mobile Number</label>
 										<div class="col-sm-9">
-											<input type="number" class="form-control" id="exampleInputMobile" placeholder="Mobile number" name="mobileNumber">
+											<input type="tel" class="form-control" id="exampleInputMobile" placeholder="+2637********" name="mobileNumber">
+										</div>
+									</div>
+						<div class="form-group row">
+										<label for="exampleInputMobile" class="col-sm-3 col-form-label">Email Address</label>
+										<div class="col-sm-9">
+											<input type="email" class="form-control" id="exampleInputMobile" placeholder="example@example.com" name="emailAddress">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="exampleInputMobile" class="col-sm-3 col-form-label">Physical Address</label>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" id="exampleInputMobile" placeholder="physical address" name="address1">
 										</div>
 									</div>
 									<div class="form-group row">
@@ -110,15 +133,12 @@
   									</select>
 										</div>
 									</div>
-									<button type="submit" name="submit" class="btn btn-primary mr-2">Add</button>
-									<button class="btn btn-light">Discard</button>
+									<button type="submit" name="submit" class="btn btn-primary mr-2" onclick="location.href = '/tracker/employees.php';">Add</button>
+									<button type="reset" name ="discard"  class="btn btn-light" onclick="location.href = '/tracker/employees.php';">Discard</button>
 								</form>
 								</div>
-						</div>
-					</div>
-				</div>
-
-				
+								</div>
+								</div>
 
 			<!-- partial:partials/_footer.html -->
 			<footer class="footer d-flex flex-column flex-md-row align-items-center justify-content-between">

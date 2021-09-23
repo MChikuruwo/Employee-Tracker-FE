@@ -69,7 +69,7 @@
                         <h6 class="card-title">Employees</h6>
                       </div>
                       <div class="col-sm-1">
-                      <a href="/tracker/AddUser.php" class="nav-link" style="float:right">
+                      <a href="/tracker/AddEmployee.php" class="nav-link" style="float:right">
               <i class="link-icon" data-feather="user-plus"></i>
               <span class="link-title">Add</span>
             </a>

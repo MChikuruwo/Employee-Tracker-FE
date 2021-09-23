@@ -4,17 +4,13 @@
   //get remote data
   $records = [
     [
-        'title' => 'BACK-END ENGINEER',
+        'businessUnit' => 'Harare',
        'dateCreated' => '01/01/21',
-       'dateUpdated' => '01/01/21',
-
     ],
 
     [
-      'title' => 'FRONT-END ENGINEER',
+      'businessUnit' => 'Bulawayo',
        'dateCreated' => '01/09/21',
-       'dateUpdated' => '01/01/21',
-
     ],
     
   ];
@@ -46,10 +42,10 @@
               <div class="card-body">
                   <div class="row">
                       <div class="col-sm-11">
-                        <h6 class="card-title">Job Titles</h6>
+                        <h6 class="card-title">Business Units</h6>
                       </div>
                       <div class="col-sm-1">
-                      <a href="/tracker/AddJobTitle.php" class="nav-link" style="float:right">
+                      <a href="/tracker/AddBusinessUnit.php" class="nav-link" style="float:right">
               <i class="link-icon" data-feather="plus-circle"></i>
               <span class="link-title">Add</span>
             </a>
@@ -58,9 +54,8 @@
                   <table id="dataTableExample" class="table">
                     <thead>
                       <tr>
-                        <th>Title</th>
+                        <th>Business Unit</th>
                         <th>Date_Created</th>
-                        <th>Date_updated</th>
                         <th></th>
                       </tr>
                     </thead>
@@ -68,17 +63,15 @@
                       
                         <?php
                           foreach ($records as $record){
-                            echo '<tr><td>'.$record['title'].'</td>
+                            echo '<tr><td>'.$record['businessUnit'].'</td>
                         <td>'.$record['dateCreated'].'</td>
-                        <td>'.$record['dateUpdated'].'</td>
-
                         <td></td>
                         <td>
-                            <a href="/tracker/EditJobTitle.php?id='.$record['title'].'" class="btn btn-info btn-sm">Edit</a>
-                            <a href="/tracker/DeleteJobTitle.php?id='.$record['title'].'" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="/tracker/EditBusinessUnit.php?id='.$record['businessUnit'].'" class="btn btn-info btn-sm">Edit</a>
+                            <a href="/tracker/DeleteBusinessUnit.php?id='.$record['businessUnit'].'" class="btn btn-danger btn-sm">Delete</a>
                         </td></tr>';
                           }
-                        ?> 
+                        ?>
                     </tbody>
                   </table>
                 </div>
