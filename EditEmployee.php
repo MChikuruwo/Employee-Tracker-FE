@@ -45,7 +45,7 @@
 		curl_close($handle);
 		 
 		if ($res !== false){
-			$success = 'Employee successfully added';
+			$success = 'Employee successfully Edited';
 		}
 		else $error = "Whoops! an error occurred";
 	}

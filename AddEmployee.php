@@ -2,6 +2,7 @@
 
 	if(isset($_POST["submit"])){
 	  @$postData = array(
+			'_method' => 'POST',
 		  'name' => $_POST['name'],
 		  'surname'  => $_POST['surname'],
 			'gender' => $_POST['gender'],

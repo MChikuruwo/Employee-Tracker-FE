@@ -1,4 +1,17 @@
 <?php 
+            header('Content-type: text/html; charset=utf-8');
+
+             // Setting the HTTP Request Headers
+						$User_Agent = 'Mozilla/5.0 (Windows NT 6.1; rv:60.0) Gecko/20100101 Firefox/60.0';
+
+						$request_headers[] = 'X-picturemaxx-api-key: key';
+						$request_headers[] = 'Contect-Type:text/html';
+						$request_headers[] = 'Accept:text/html';
+						$request_headers[] = 'Accept: application/json';
+						$request_headers[] = 'Content-type: application/json';
+						$request_headers[] = 'Accept-Encoding:  gzip, deflate, identity';
+						$request_headers[] = 'Expect: ';                   
+
 
   if(isset($_POST["deleteID"])){
     @$postData = array(
@@ -32,12 +45,73 @@
   }
 
   $url = "https://employee-tracker-apii.herokuapp.com/api/v1/employees/"; 
-  $ch = curl_init();   
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);   
-  curl_setopt($ch, CURLOPT_URL, $url);   
-  $response = curl_exec($ch);  
-  curl_close($ch);
-  include('includes/head.php');
+
+  function jwt_request($token, $get) {
+
+					$ch = curl_init($url);
+					// Set the url      
+          $get = json_encode($get); // Encode the data array into a JSON string
+
+		curl_setopt( $ch, CURLOPT_URL, $url );
+		curl_setopt($ch, CURLOPT_USERAGENT, $User_Agent);
+  $authorization = "Authorization: Bearer ".$token; // Prepare the authorisation token
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization )); // Inject the token into the header
+						curl_setopt($ch, CURLOPT_HTTPHEADER, $request_headers);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+						curl_setopt($ch, CURLOPT_ENCODING, "");
+						//curl_setopt($ch, CURLOPT_GET, 1);
+						curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+						curl_setopt($ch, CURLOPT_COOKIEJAR, dirname(__FILE__) . '/cookie.txt');
+						curl_setopt($ch, CURLOPT_COOKIEFILE, dirname(__FILE__) . '/cookie.txt');
+
+
+						// Execute
+						$result = curl_exec($ch);
+				$code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+						// Performs the Request, with specified curl_setopt() options (if any).
+						$data = json_decode( file_get_contents( 'php://input' ), true );
+						// Closing
+               $response = curl_exec($ch);  
+	          	curl_close($ch);
+                return json_decode($result); // Return the received data
+
+                $headers = [];
+                $result = rtrim($result);
+                $data = explode("\n",$result);
+                $headers['status'] = $data[0];
+                array_shift($data);
+                
+                foreach($data as $part){
+                
+                    //some headers will contain ":" character (Location for example), and the part after ":" will be lost, Thanks to @Emanuele
+                    $middle = explode(":",$part,2);
+                
+                    //Supress warning message if $middle[1] does not exist, Thanks to @crayons
+                    if ( !isset($middle[1]) ) { $middle[1] = null; }
+                
+                    $headers[trim($middle[0])] = trim($middle[1]);
+                }
+                
+                   
+              if ($code == 200) {
+                $result = json_decode($result, true);
+                $success = ' ';
+          
+            } 		else {
+               $error = "Whoops! an error occured.";
+          
+            }
+          
+ }
+
+ //print_r(jwt_request());
+ 
+
+
+         
+include('includes/head.php')
+
 ?> 
 	<div class="main-wrapper">
 
@@ -75,13 +149,6 @@
             </a>
 </div></div>
             <?php
-                          if($response === false){
-                            echo '</tbody></thead><p class="alert alert-danger">An error occurred!</p><br>';
-                          }
-                          elseif (empty($response)){
-                              echo '</tbody></thead><br><br<br><h3 class="text-center text-muted">No employees!</h3><br><br<br>';
-                          }
-                          else{
                             if(isset($error)){
                               echo '<p class="alert alert-danger">' . $error . '</p><br>';
                             }
@@ -89,9 +156,7 @@
                               echo '<p class="alert alert-success">' . $success . '</p><br>';
                             }
             ?>
-
-
-                        <div class="table-responsive">
+        <div class="table-responsive">
                   <table id="dataTableExample" class="table">
                     <thead>
                       <tr>
@@ -103,6 +168,8 @@
                         <th>Mobile</th>
                         <th>E-mail</th>
                         <th>Res_Status</th>
+                        <th>Address</th>
+                        <th>U-id</th>
                         <th>Emp_Status</th>
                         <th>Job_Title</th>
                         <th></th>
@@ -120,7 +187,9 @@
                               <td>'.$record->mobileNumber.'</td>
                               <td>'.$record->emailAddress.'</td>
                               <td>'.$record->residentialStatus.'</td>
-                              <td>'.$record->employmentStatus.'</td>
+                              <td>'.$record->address1.'</td>
+                              <td>'.$record->userId.'</td>
+                              <td>'.$record->employeeStatus.'</td>
                               <td>'.$record->jobTitle.'</td>
                                   <td></td>
                               <td>
@@ -135,7 +204,7 @@
                   </table>
                 </div>
                 <?php 
-                  }
+                  {}
                 ?>
               </div>
             </div>
