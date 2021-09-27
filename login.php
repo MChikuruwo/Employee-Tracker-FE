@@ -55,7 +55,7 @@
 						// Closing
 		curl_close($ch);
 
-		$headers = [];
+/*$headers = [];
 $result = rtrim($result);
 $data = explode("\n",$result);
 $headers['status'] = $data[0];
@@ -71,24 +71,25 @@ foreach($data as $part){
 
     $headers[trim($middle[0])] = trim($middle[1]);
 }
+*/
 
 	 
 		if ($code == 200) {
 			$result = json_decode($result, true);
 			$success = 'Login successful';
-			print_r($headers);
-			 die();
+			$_SESSION['Authorization']= print_r($headers['Authorization']);
+			// die();
 			
 
 			header("Location: http://localhost/tracker/");
 
 		
 	} 		else {
-		 $error = "Whoops! incorrect credentials, check your e-mail or password.";
+		// $error = " ";
 
 	}
 
-	print_r($result);
+	//print_r($result);
 
 include('includes/head.php')
 

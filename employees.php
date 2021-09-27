@@ -1,4 +1,5 @@
 <?php 
+session_start();
             header('Content-type: text/html; charset=utf-8');
 
              // Setting the HTTP Request Headers
@@ -10,6 +11,7 @@
 						$request_headers[] = 'Accept: application/json';
 						$request_headers[] = 'Content-type: application/json';
 						$request_headers[] = 'Accept-Encoding:  gzip, deflate, identity';
+						$request_headers[] = 'Authorization: ' . $_SESSION['Authorization'];
 						$request_headers[] = 'Expect: ';                   
 
 
@@ -46,7 +48,7 @@
 
   $url = "https://employee-tracker-apii.herokuapp.com/api/v1/employees/"; 
 
-  function jwt_request($token, $get) {
+  /*function jwt_request($token, $get) {
 
 					$ch = curl_init($url);
 					// Set the url      
@@ -93,23 +95,44 @@
                     $headers[trim($middle[0])] = trim($middle[1]);
                 }
                 
-                   
+                */
+
+                $ch = curl_init($url);
+
+                curl_setopt( $ch, CURLOPT_URL, $url );
+                curl_setopt($ch, CURLOPT_USERAGENT, $User_Agent);
+
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $request_headers);
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($ch, CURLOPT_ENCODING, "");
+                      //curl_setopt($ch, CURLOPT_GET, 1);
+                        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+                        curl_setopt($ch, CURLOPT_COOKIEJAR, dirname(__FILE__) . '/cookie.txt');
+                        curl_setopt($ch, CURLOPT_COOKIEFILE, dirname(__FILE__) . '/cookie.txt');
+
+                        $result = curl_exec($ch);
+			    	$code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+						// Performs the Request, with specified curl_setopt() options (if any).
+					//	$data = json_decode( file_get_contents( 'php://input' ), true );
+						// Closing
+               //$result = curl_exec($ch);  
+	          	curl_close($ch);
+                //return json_decode($result); // Return the received data
+
+
               if ($code == 200) {
-                $result = json_decode($result, true);
+                $result = json_decode($result['responseBody']; 
                 $success = ' ';
           
             } 		else {
                $error = "Whoops! an error occured.";
           
             }
+
+       print_r($result);
+       //die();
           
- }
-
- //print_r(jwt_request());
- 
-
-
-         
 include('includes/head.php')
 
 ?> 
@@ -154,7 +177,7 @@ include('includes/head.php')
                             }
                             elseif(isset($success)){
                               echo '<p class="alert alert-success">' . $success . '</p><br>';
-                            }
+                            
             ?>
         <div class="table-responsive">
                   <table id="dataTableExample" class="table">
@@ -178,7 +201,7 @@ include('includes/head.php')
                     <tbody>
                       
                         <?php
-                            foreach (json_decode($response) as $record){
+                            foreach ($result as $record){
                               echo '<tr><td>'.$record->employeeCode.'</td>
                               <td>'.$record->name.'</td>
                               <td>'.$record->surname.'</td>
@@ -204,7 +227,7 @@ include('includes/head.php')
                   </table>
                 </div>
                 <?php 
-                  {}
+                  }
                 ?>
               </div>
             </div>
